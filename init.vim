@@ -22,6 +22,7 @@ Plug 'mxw/vim-jsx'
 Plug 'mattn/emmet-vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
 
 " All of your Plugins must be added before the following line
 call plug#end()            " required
@@ -79,17 +80,26 @@ let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 let NERDTreeShowHidden=1
 set tabstop=2 shiftwidth=2 expandtab
-"nnoremap <Leader>g :YcmCompleter GoTo<CR>
 let g:ale_linters = {'javascript': ['eslint']}
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-" this is something I test
 let g:ctrlp_working_path_mode = 0 " make ctrlp work from current dir
-nnoremap <S-Up> :m-2<CR>
-nnoremap <S-Down> :m+<CR>
-inoremap <S-Up> <Esc>:m-2<CR>
-inoremap <S-Down> <Esc>:m+<CR>
+
+" Bring line up and down
+"nnoremap <S-k> :m-2<CR>
+"nnoremap <S-j> :m+<CR>
+"inoremap <S-k> <Esc>:m-2<CR>
+"inoremap <S-j> <Esc>:m+<CR>
+nnoremap <S-j> :m .+1<CR>==
+nnoremap <S-k> :m .-2<CR>==
+inoremap <S-j> <Esc>:m .+1<CR>==gi
+inoremap <S-k> <Esc>:m .-2<CR>==gi
+vnoremap <S-j> :m '>+1<CR>gv=gv
+vnoremap <S-k> :m '<-2<CR>gv=gv
+
+" vim-airline config
 let g:airline_powerline_fonts = 1
 set guifont=MesloLGLDZForPowerline-Regular:h13
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
+inoremap <Tab> <C-n>
